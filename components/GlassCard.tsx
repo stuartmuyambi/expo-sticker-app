@@ -27,7 +27,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   gradient = false,
   gradientColors,
 }) => {
-  const { colors, colorScheme } = useTheme();
+  const { colorScheme } = useTheme();
   const scale = useSharedValue(1);
   
   const animatedStyle = useAnimatedStyle(() => {
@@ -79,9 +79,8 @@ export const GlassCard: React.FC<GlassCardProps> = ({
         onPressOut={handlePressOut}
         onPress={onPress}
         disabled={!onPress}
-      >
-        <LinearGradient
-          colors={gradientColors || [
+      >        <LinearGradient
+          colors={gradientColors as [string, string, ...string[]] || [
             colorScheme === 'dark' ? 'rgba(99, 102, 241, 0.3)' : 'rgba(99, 102, 241, 0.1)',
             colorScheme === 'dark' ? 'rgba(139, 92, 246, 0.3)' : 'rgba(139, 92, 246, 0.1)',
           ]}

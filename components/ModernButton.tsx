@@ -131,9 +131,8 @@ export const ModernButton: React.FC<ModernButtonProps> = ({
         onPressOut={handlePressOut}
         onPress={onPress}
         disabled={disabled || loading}
-      >
-        <LinearGradient
-          colors={gradientColors || ['#6366F1', '#8B5CF6']}
+      >        <LinearGradient
+          colors={gradientColors as [string, string, ...string[]] || ['#6366F1', '#8B5CF6']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={getButtonStyle()}

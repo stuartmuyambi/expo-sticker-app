@@ -235,10 +235,10 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-  },
-  scrollContent: {
+  },  scrollContent: {
     flexGrow: 1,
     paddingHorizontal: Spacing.lg,
+    paddingBottom: Spacing.xl,
   },
   header: {
     alignItems: 'center',
@@ -274,10 +274,9 @@ const styles = StyleSheet.create({
   },
   optionButton: {
     flex: 1,
-  },
-  startContainer: {
-    flex: 1,
+  },  startContainer: {
     justifyContent: 'center',
+    minHeight: 300,
   },
   startCard: {
     alignItems: 'center',

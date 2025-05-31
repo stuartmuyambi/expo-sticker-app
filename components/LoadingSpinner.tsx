@@ -21,7 +21,6 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
 }) => {
   const { colors } = useTheme();
   const rotation = useSharedValue(0);
-
   React.useEffect(() => {
     rotation.value = withRepeat(
       withTiming(360, {
@@ -30,7 +29,7 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
       }),
       -1
     );
-  }, []);
+  }, [rotation]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
