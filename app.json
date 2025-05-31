@@ -1,22 +1,30 @@
 {
   "expo": {
-    "name": "StickerSmash",
-    "slug": "StickerSmash",
-    "version": "1.0.0",
+    "name": "Smart Sticker Studio",
+    "slug": "Smart Sticker",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "stickersmash",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to save and view your sticker creations."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_MEDIA_IMAGES"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -31,7 +39,15 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#6366F1"
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow Smart Sticker Studio to access your photos to save your sticker creations.",
+          "savePhotosPermission": "Allow Smart Sticker Studio to save your sticker creations to your photo library.",
+          "isAccessMediaLocationEnabled": true
         }
       ]
     ],

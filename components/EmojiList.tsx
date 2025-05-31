@@ -1,6 +1,10 @@
 import { Image } from 'expo-image';
 import { useState } from 'react';
 import { FlatList, ImageSourcePropType, Platform, Pressable, StyleSheet } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import { BorderRadius, Spacing } from '../constants/Theme';
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 type Props = {
   onSelect: (image: ImageSourcePropType) => void;
@@ -17,6 +21,38 @@ export default function EmojiList({ onSelect, onCloseModal }: Props) {
     require("../assets/images/emoji6.png"),
   ]);
 
+  const EmojiItem = ({ item, index }: { item: ImageSourcePropType; index: number }) => {
+    const scale = useSharedValue(1);
+    
+    const animatedStyle = useAnimatedStyle(() => {
+      return {
+        transform: [{ scale: scale.value }],
+      };
+    });
+
+    const handlePressIn = () => {
+      scale.value = withSpring(0.9);
+    };
+
+    const handlePressOut = () => {
+      scale.value = withSpring(1);
+    };
+
+    return (
+      <AnimatedPressable
+        style={[animatedStyle, styles.emojiContainer]}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        onPress={() => {
+          onSelect(item);
+          onCloseModal();
+        }}
+      >
+        <Image source={item} key={index} style={styles.image} />
+      </AnimatedPressable>
+    );
+  };
+
   return (
     <FlatList
       horizontal
@@ -24,13 +60,7 @@ export default function EmojiList({ onSelect, onCloseModal }: Props) {
       data={emoji}
       contentContainerStyle={styles.listContainer}
       renderItem={({ item, index }) => (
-        <Pressable
-          onPress={() => {
-            onSelect(item);
-            onCloseModal();
-          }}>
-          <Image source={item} key={index} style={styles.image} />
-        </Pressable>
+        <EmojiItem item={item} index={index} />
       )}
     />
   );
@@ -38,16 +68,18 @@ export default function EmojiList({ onSelect, onCloseModal }: Props) {
 
 const styles = StyleSheet.create({
   listContainer: {
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.lg,
     alignItems: 'center',
-    justifyContent: 'space-between',
+  },
+  emojiContainer: {
+    marginRight: Spacing.md,
+    borderRadius: BorderRadius.xl,
+    padding: Spacing.sm,
   },
   image: {
-    width: 100,
-    height: 100,
-    marginRight: 20,
+    width: 80,
+    height: 80,
+    borderRadius: BorderRadius.lg,
   },
 });
